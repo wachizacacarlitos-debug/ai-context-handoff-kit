@@ -1,0 +1,31 @@
+{
+  "version": "1.0",
+  "title": "Add CSV export to the billing table",
+  "goal": "Let account administrators download the currently filtered billing table as a CSV file.",
+  "currentState": "The table and filtering already work. The export button is present but has no handler. Currency values are stored in cents.",
+  "nextAction": "Implement a client-side CSV serializer that exports the filtered rows and formats cents as decimal currency.",
+  "decisions": [
+    "Export only rows visible under the current filters.",
+    "Keep all serialization in the browser; no new API endpoint is needed.",
+    "Use ISO dates in the CSV to avoid locale ambiguity."
+  ],
+  "files": [
+    {
+      "path": "src/components/BillingTable.tsx",
+      "purpose": "Contains filters, rows, and the export button."
+    },
+    {
+      "path": "src/lib/currency.ts",
+      "purpose": "Formats integer cents for display."
+    }
+  ],
+  "verification": [
+    "Run npm test.",
+    "Filter to one customer and confirm the downloaded CSV has only that customer's rows.",
+    "Confirm that 12345 cents appears as 123.45 in the CSV."
+  ],
+  "risks": [
+    "Do not include internal notes or payment processor IDs in the export."
+  ],
+  "updatedAt": "2026-08-01T18:00:00Z"
+}
